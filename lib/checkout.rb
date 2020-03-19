@@ -27,6 +27,13 @@ class Checkout
         else
           total += (prices.fetch(item) / 2) * count
         end
+      # buy 3 get 1 free solution for mangos
+      # item check in basket if it is mango then count checked. 
+      # if it is greater than 3, discount is added by reducing one manago in total price
+      elsif item == :mango
+        if (count >= 3)
+          total += prices.fetch(item) * (count - 1)
+        end
       else
         total += prices.fetch(item) * count
       end
