@@ -7,7 +7,8 @@ class Checkout
   def initialize(prices)
     @prices = prices
     # the type of discount and the item to which it applies
-    @discounts = { 'Get 1 Free' => :mango }
+    # 
+    @discounts = { 'Get 1 Free' => :mango, 'Half price offer per customer' => :pineapple, 'Half price offer' => :banana }
   end
 
   def scan(item)
@@ -26,10 +27,10 @@ class Checkout
         end
       elsif item == :banana || item == :pineapple
         if item == :pineapple
-          total += (prices.fetch(item) / 2)
-          total += (prices.fetch(item)) * (count - 1)
+          total += (prices.fetch(@discounts['Half price offer per customer']) / 2)
+          total += (prices.fetch(@discounts['Half price offer per customer'])) * (count - 1)
         else
-          total += (prices.fetch(item) / 2) * count
+          total += (prices.fetch(@discounts['Half price offer']) / 2) * count
         end
       # 1st commit
       # buy 3 get 1 free solution for mangos
