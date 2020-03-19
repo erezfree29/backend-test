@@ -1,9 +1,13 @@
 class Checkout
-  attr_reader :prices
-  private :prices
+  # Discounts hash defined
+  # key value pair definied based on Discount Type and Discount Item 
+  attr_reader :prices, :discounts
+  private :prices, :discounts
 
   def initialize(prices)
     @prices = prices
+    # the type of discount and the item to which it applies
+    @discounts = { 'Get 1 Free' => :mango }
   end
 
   def scan(item)
@@ -38,7 +42,9 @@ class Checkout
       elsif item == :mango
         discount_items = count % 3
         if (discount_items >= 0)
-          total += prices.fetch(item) * (count - discount_items)
+          # 3rd commit
+          # To make it dynamic. we access @discunt hash based on defined types
+          total += prices.fetch(@discounts['Get 1 Free']) * (count - discount_items)
         end
       else
         total += prices.fetch(item) * count
